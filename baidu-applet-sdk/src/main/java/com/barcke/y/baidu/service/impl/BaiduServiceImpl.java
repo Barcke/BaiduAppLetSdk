@@ -7,6 +7,7 @@ import com.barcke.y.baidu.dto.BaiduGetSessionKeyDTO;
 import com.barcke.y.baidu.dto.BaiduGetSessionKeyResponseDTO;
 import com.barcke.y.baidu.exception.BaiduException;
 import com.barcke.y.baidu.service.BaiduService;
+import com.barcke.y.baidu.service.BaiduTemplateService;
 import com.barcke.y.baidu.util.HttpUtil;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -60,5 +61,14 @@ public class BaiduServiceImpl implements BaiduService {
         }
 
         return baiduGetSessionKeyResponseDTO;
+    }
+
+    public BaiduTemplateService getBaiduTemplateService() {
+        return BaiduTemplateServiceHolder.baiduTemplateService;
+    }
+
+
+    private static class BaiduTemplateServiceHolder{
+        private static final BaiduTemplateService baiduTemplateService=new BaiduTemplateServiceImpl();
     }
 }

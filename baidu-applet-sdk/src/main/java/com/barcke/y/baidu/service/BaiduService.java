@@ -30,4 +30,12 @@ public interface BaiduService {
      * @return cn.ideamake.common.response.Result
      */
     BaiduGetSessionKeyResponseDTO getSessionKey(String code) throws BaiduException;
+
+    /**
+     * 获取模板消息service
+     * @author barcke
+     * @date 2020/5/10
+     * @return BaiduTemplateService
+     */
+    BaiduTemplateService getBaiduTemplateService();
 }

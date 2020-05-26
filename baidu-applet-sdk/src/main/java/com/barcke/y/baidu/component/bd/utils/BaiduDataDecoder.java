@@ -1,6 +1,6 @@
-package com.barcke.y.baidu.util;
+package com.barcke.y.baidu.component.bd.utils;
 
-import com.barcke.y.baidu.dto.BaiduGetUserInfoResponseDTO;
+import com.barcke.y.baidu.pojo.BaiduGetUserInfoResponseDTO;
 import com.barcke.y.baidu.exception.BaiduException;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;

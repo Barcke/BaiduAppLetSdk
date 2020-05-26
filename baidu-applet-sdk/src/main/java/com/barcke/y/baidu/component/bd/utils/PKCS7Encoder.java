@@ -1,4 +1,4 @@
-package com.barcke.y.baidu.util;
+package com.barcke.y.baidu.component.bd.utils;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;

@@ -1,4 +1,4 @@
-package com.barcke.y.baidu.dto;
+package com.barcke.y.baidu.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

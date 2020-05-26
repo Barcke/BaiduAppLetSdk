@@ -1,8 +1,8 @@
-package com.barcke.y.baidu.util;
+package com.barcke.y.baidu.component.bd.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.barcke.y.baidu.exception.BaiduParamsException;
+import com.barcke.y.baidu.annotation.BaiduFieldName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -16,7 +16,9 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
+import java.lang.reflect.Field;
 import java.net.URI;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -77,13 +79,15 @@ public class HttpUtil {
 
                 for(Iterator var9 = headers.entrySet().iterator(); var9.hasNext(); ++i) {
                     Map.Entry<String, String> entry = (Map.Entry)var9.next();
-                    allHeader[i] = new BasicHeader((String)entry.getKey(), (String)entry.getValue());
+                    allHeader[i] = new BasicHeader(entry.getKey(), entry.getValue());
                 }
 
                 httpPost.setHeaders(allHeader);
             }
 
-            httpPost.setEntity(new StringEntity(JSON.toJSONString(data)));
+            if (null==data) {
+                httpPost.setEntity(new StringEntity(JSON.toJSONString(data)));
+            }
 
             //构建超时等配置信息
             RequestConfig config = RequestConfig.custom().setConnectTimeout(CONNECT_TIME_OUT) //连接超时时间
@@ -133,7 +137,7 @@ public class HttpUtil {
 
                 for(Iterator var9 = headers.entrySet().iterator(); var9.hasNext(); ++i) {
                     Map.Entry<String, String> entry = (Map.Entry)var9.next();
-                    allHeader[i] = new BasicHeader((String)entry.getKey(), (String)entry.getValue());
+                    allHeader[i] = new BasicHeader(entry.getKey(), entry.getValue());
                 }
 
                 httpGet.setHeaders(allHeader);
@@ -168,9 +172,77 @@ public class HttpUtil {
         return sendGet(url,null,"UTF-8");
     }
 
-    public static String sendGet(String url,Map<String,Object> params) throws BaiduParamsException {
+    public static String sendGet(String url,Object o){
+        if (o == null) {
+            return sendGet(url,null,"UTF-8");
+        }
+        StringBuilder sb=new StringBuilder();
+        Field[] declaredFields = o.getClass().getDeclaredFields();
+        for (Field field :
+                declaredFields) {
+            field.setAccessible(true);
+
+            Object value = "";
+            try {
+                value=field.get(o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (value==null){
+                continue;
+            }
+
+            if (StringUtils.isNotBlank(sb)){
+                sb.append("&");
+            }
+
+            if (field.isAnnotationPresent(BaiduFieldName.class)){
+                sb.append(field.getAnnotation(BaiduFieldName.class).value()+ "=" +value);
+                continue;
+            }
+            sb.append(field.getName() + "=" +value);
+        }
+
+        return sendGet(url + "?" + sb.toString(),null,"UTF-8");
+    }
+
+    public static String sendGet(String url,Object o,Map<String, String> headers){
+        if (o == null) {
+            return sendGet(url,null,"UTF-8");
+        }
+        StringBuilder sb=new StringBuilder();
+        Field[] declaredFields = o.getClass().getDeclaredFields();
+        for (Field field :
+                declaredFields) {
+            field.setAccessible(true);
+
+            Object value = "";
+            try {
+                value=field.get(o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (value==null){
+                continue;
+            }
+
+            if (StringUtils.isNotBlank(sb)){
+                sb.append("&");
+            }
+
+            if (field.isAnnotationPresent(BaiduFieldName.class)){
+                sb.append(field.getAnnotation(BaiduFieldName.class).value()+ "=" +value);
+                continue;
+            }
+            sb.append(field.getName() + "=" +value);
+        }
+
+        return sendGet(url + "?" + sb.toString(),headers,"UTF-8");
+    }
+
+    public static String sendGet(String url,Map<String,Object> params) {
         if (null==params||params.isEmpty()){
-            throw new BaiduParamsException("params不能为空");
+            return sendGet(url,null,"UTF-8");
         }
         StringBuilder sb=new StringBuilder();
         for (String key :
@@ -186,9 +258,9 @@ public class HttpUtil {
         return sendGet(url + "?" +sb.toString(),null,"UTF-8");
     }
 
-    public static String sendGet(String url,JSONObject params) throws BaiduParamsException {
+    public static String sendGet(String url,JSONObject params) {
         if (null==params||params.isEmpty()){
-            throw new BaiduParamsException("params不能为空");
+            return sendGet(url,null,"UTF-8");
         }
 
         StringBuilder sb=new StringBuilder();
@@ -213,6 +285,37 @@ public class HttpUtil {
 
     public static String sendPost(String url, JSONObject jsonObject){
         return sendPost(url,null,jsonObject,"UTF-8");
+    }
+
+    public static String sendPost(String url, Object o){
+        if (null==o){
+            return sendPost(url,null,null,"UTF-8");
+        }
+
+        Map<String,Object> map = new HashMap<String, Object>();
+        Field[] declaredFields = o.getClass().getDeclaredFields();
+        for (Field field :
+                declaredFields) {
+            field.setAccessible(true);
+
+            Object value = "";
+            try {
+                value=field.get(o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (value==null){
+                continue;
+            }
+
+            if (field.isAnnotationPresent(BaiduFieldName.class)){
+                map.put(field.getAnnotation(BaiduFieldName.class).value(),value);
+                continue;
+            }
+            map.put(field.getName(),value);
+        }
+
+        return sendPost(url,map);
     }
 
 }

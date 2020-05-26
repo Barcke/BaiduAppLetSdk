@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.barcke.y.baidu.config.BaiduAutoConfigure

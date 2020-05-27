@@ -1,14 +1,11 @@
 package com.barcke.y.baidu.config;
 
 import com.barcke.y.baidu.component.LocalCache;
+import com.barcke.y.baidu.component.context.BaiduApplicationContext;
 import com.barcke.y.baidu.config.properties.BaiduServiceProperties;
 import com.barcke.y.baidu.core.BaiduServiceFactory;
-import com.barcke.y.baidu.service.BaiduMiniAuthService;
-import com.barcke.y.baidu.service.BaiduTemplateService;
-import com.barcke.y.baidu.service.BaiduThirdPartAuthService;
-import com.barcke.y.baidu.service.impl.BaiduMiniAuthServiceImpl;
-import com.barcke.y.baidu.service.impl.BaiduTemplateServiceImpl;
-import com.barcke.y.baidu.service.impl.BaiduThirdPartAuthServiceImpl;
+import com.barcke.y.baidu.service.*;
+import com.barcke.y.baidu.service.impl.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
@@ -64,10 +61,19 @@ public class BaiduAutoConfigure {
     }
 
     @Bean
+    @ConditionalOnMissingBean(BaiduImageUploadService.class)
+    @Primary
+    public BaiduImageUploadService baiduImageUploadService(){
+        return new BaiduImageUploadServiceImpl();
+    }
+
+    @Bean
     @ConditionalOnMissingBean(BaiduServiceFactory.class)
 //    @ConditionalOnProperty(prefix = "baidu.applet.info",value = "enabled", havingValue = "true")
     public BaiduServiceFactory baiduServiceFactory(BaiduThirdPartAuthService baiduThirdPartAuthService,
-                                                   BaiduMiniAuthService baiduMiniAuthService){
+                                                   BaiduMiniAuthService baiduMiniAuthService,
+                                                   BaiduImageUploadService baiduImageUploadService
+    ){
         return new BaiduServiceFactory() {
 
             @Override
@@ -84,6 +90,16 @@ public class BaiduAutoConfigure {
             public BaiduMiniAuthService getBaiduMiniAuthService() {
                 return baiduMiniAuthService;
             }
+
+            @Override
+            public BaiduMiniUserService getBaiduMiniUserService() {
+                return new BaiduMiniUserServiceImpl();
+            }
+
+            @Override
+            public BaiduImageUploadService getBaiduImageUploadService() {
+                return baiduImageUploadService;
+            }
         };
     }
 
@@ -91,6 +107,12 @@ public class BaiduAutoConfigure {
     @ConditionalOnMissingBean(LocalCache.class)
     public LocalCache localCache(){
         return new LocalCache();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean(BaiduApplicationContext.class)
+    public BaiduApplicationContext baiduApplicationContext(){
+        return new BaiduApplicationContext();
     }
 
 }

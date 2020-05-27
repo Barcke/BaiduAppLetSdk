@@ -1,6 +1,6 @@
 package com.barcke.y.baidu.component.utils;
 
-import com.barcke.y.baidu.annotation.BaiduFieldName;
+import com.barcke.y.baidu.component.annotation.BaiduFieldName;
 import lombok.experimental.UtilityClass;
 import org.apache.commons.lang3.StringUtils;
 

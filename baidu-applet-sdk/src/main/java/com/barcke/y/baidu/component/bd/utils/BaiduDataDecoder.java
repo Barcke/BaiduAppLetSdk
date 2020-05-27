@@ -1,7 +1,7 @@
 package com.barcke.y.baidu.component.bd.utils;
 
-import com.barcke.y.baidu.pojo.BaiduGetUserInfoResponseDTO;
-import com.barcke.y.baidu.exception.BaiduException;
+import com.barcke.y.baidu.pojo.mini.user.response.GetUserInfoResponse;
+import com.barcke.y.baidu.component.exception.BaiduException;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
@@ -96,15 +96,15 @@ public class BaiduDataDecoder {
      * @param args
      */
     public static void main(String[] args) {
-        String dy = "OpCoJgs7RrVgaMNDixIvaCIyV2SFDBNLivgkVqtzq2GC10egsn+PKmQ/+5q+chT8xzldLUog2haTItyIkKyvzvmXonBQLIMeq54axAu9c3KG8IhpFD6+ymHocmx07ZKi7eED3t0KyIxJgRNSDkFk5RV1ZP2mSWa7ZgCXXcAbP0RsiUcvhcJfrSwlpsm0E1YJzKpYy429xrEEGvK+gfL+Cw==";
+        String dy = "Tkl2sKXzQbDGejO/DqjfemCkfmSwfhqYOAs32Pi+8by31JM+nVft7gDDutxiXk+AAzB75F2LbzBq8AoeusqTngZl37zqnvGrNvkNr4Zn0WrEv9GhyckcDvH9DbCkH20nHuj1C1h4y//xNJREYdApargMB1joxVSl+9KOEA7Uem5E/PxZxlt/YkPesP9O0aZ/3y/hwjpdK4udvEKYM/obs7L0/7h4s1Ne8fVw7G9d/XDf3WHy/0J67ESccr7eGPORoY95Buyc0wYbJvba2i4MtA==";
 
 //        String dy = "ZOrJtrJ4eWkDOciQmyXPfqJhcF4t+SJsLYuIWufKt+/aBsXjKH/3iv7GafIE5DqqfEQjor4=";
 
-        String sessionKey = "1df09d0a1677dd72b8325aec59576e0c";
+        String sessionKey = "2144a9f7a91f8ac81c2ca7640431228d";
         BaiduDataDecoder demo=new BaiduDataDecoder();
         String dd = demo.decrypt(dy, sessionKey);
         Gson gson=new Gson();
-        BaiduGetUserInfoResponseDTO baiduGetUserInfoResponseDTO = gson.fromJson(dd, BaiduGetUserInfoResponseDTO.class);
+        GetUserInfoResponse baiduGetUserInfoResponseDTO = gson.fromJson(dd, GetUserInfoResponse.class);
         System.out.println(dd);
     }
 }

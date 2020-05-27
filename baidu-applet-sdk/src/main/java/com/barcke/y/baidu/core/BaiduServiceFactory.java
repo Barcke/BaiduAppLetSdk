@@ -1,8 +1,6 @@
 package com.barcke.y.baidu.core;
 
-import com.barcke.y.baidu.service.BaiduMiniAuthService;
-import com.barcke.y.baidu.service.BaiduThirdPartAuthService;
-import com.barcke.y.baidu.service.BaiduTemplateService;
+import com.barcke.y.baidu.service.*;
 
 /**
   *                  ,;,,;
@@ -48,5 +46,20 @@ public interface BaiduServiceFactory {
      * @date 2020/5/26
      */
     BaiduMiniAuthService getBaiduMiniAuthService();
+
+    /**
+     * 用户相关service
+     * @author barcke
+     * @date 2020/5/27
+     */
+    BaiduMiniUserService getBaiduMiniUserService();
+
+    /**
+     * 图片上传service
+     * @author barcke
+     * @date 2020/5/27
+     * @return com.barcke.y.baidu.service.BaiduImageUploadService
+     */
+    BaiduImageUploadService getBaiduImageUploadService();
 
 }

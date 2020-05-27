@@ -4,17 +4,19 @@ import com.alibaba.fastjson.JSONObject;
 import com.barcke.y.baidu.component.LocalCache;
 import com.barcke.y.baidu.component.bd.utils.AesDecryptUtil;
 import com.barcke.y.baidu.component.bd.utils.HttpUtil;
+import com.barcke.y.baidu.component.context.BaiduApplicationContext;
+import com.barcke.y.baidu.component.enums.BaiduErrorInfoEnums;
 import com.barcke.y.baidu.component.utils.JoinerUrlUtil;
-import com.barcke.y.baidu.constants.BaiduParamsConstants;
-import com.barcke.y.baidu.constants.BaiduResponseMsgConstants;
-import com.barcke.y.baidu.constants.BaiduUrlConstants;
-import com.barcke.y.baidu.constants.LocalCacheConstants;
-import com.barcke.y.baidu.exception.BaiduException;
-import com.barcke.y.baidu.exception.BaiduParamsException;
-import com.barcke.y.baidu.pojo.auto.request.*;
-import com.barcke.y.baidu.pojo.auto.response.AccessTokenResponse;
-import com.barcke.y.baidu.pojo.auto.response.PreAuthCodeResponse;
-import com.barcke.y.baidu.pojo.auto.response.MiniTokenResponse;
+import com.barcke.y.baidu.component.constants.BaiduParamsConstants;
+import com.barcke.y.baidu.component.constants.BaiduResponseMsgConstants;
+import com.barcke.y.baidu.component.constants.BaiduUrlConstants;
+import com.barcke.y.baidu.component.constants.LocalCacheConstants;
+import com.barcke.y.baidu.component.exception.BaiduException;
+import com.barcke.y.baidu.component.exception.BaiduParamsException;
+import com.barcke.y.baidu.pojo.thirdpart.auto.request.*;
+import com.barcke.y.baidu.pojo.thirdpart.auto.response.AccessTokenResponse;
+import com.barcke.y.baidu.pojo.thirdpart.auto.response.PreAuthCodeResponse;
+import com.barcke.y.baidu.pojo.thirdpart.auto.response.MiniTokenResponse;
 import com.barcke.y.baidu.service.BaiduThirdPartAuthService;
 import com.google.gson.Gson;
 import lombok.extern.slf4j.Slf4j;
@@ -58,6 +60,9 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Autowired
     private LocalCache localCache;
 
+    @Autowired
+    private BaiduApplicationContext baiduApplicationContext;
+
     @Override
     public AccessTokenResponse getToken(String ticken) {
         if (StringUtils.isBlank(ticken)) {
@@ -97,7 +102,7 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public String getAuthorizationUrl(String preAuthCode, String redirectUri) {
         if (StringUtils.isAnyBlank(preAuthCode,redirectUri)) {
-            throw new BaiduParamsException("accessToken不能为空");
+            throw new BaiduParamsException(String.format("参数不能为空preAuthCode、redirectUri===》%s,%s",preAuthCode,redirectUri));
         }
 
         return JoinerUrlUtil.joinerUrl(BaiduUrlConstants.GET_AUTHORIZATION_URL, new AuthorizationRequest(thirdPartAppKey,preAuthCode,redirectUri));
@@ -106,14 +111,14 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public MiniTokenResponse codeChangeMiniToken(String accessToken, String code) {
         if (StringUtils.isAnyBlank(accessToken,code)) {
-            throw new BaiduParamsException("参数不能为空");
+            throw new BaiduParamsException(String.format("参数不能为空accessToken、code===》%s,%s",accessToken,code));
         }
         String response = HttpUtil.sendGet(BaiduUrlConstants.GET_MINI_TOKEN_URL, new CodeChangeMiniTokenRequest(accessToken,code));
 
         MiniTokenResponse miniTokenResponse = new Gson().fromJson(response, MiniTokenResponse.class);
 
         if (StringUtils.isNotBlank(miniTokenResponse.getError())){
-            throw new BaiduException("换取小程序token异常===》"+response);
+            throw new BaiduException("换取小程序token异常===》"+response+"\n异常解析===》"+ BaiduErrorInfoEnums.getMsgByErrorCode(miniTokenResponse.getError()));
         }
 
         localCache.setLocalCache(LocalCacheConstants.GET_THIRD_PART_CHANGE_MINI_TOKEN_KEY,miniTokenResponse);
@@ -124,14 +129,14 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public MiniTokenResponse refreshMiniToken(String accessToken, String refreshToken) {
         if (StringUtils.isAnyBlank(accessToken,refreshToken)) {
-            throw new BaiduParamsException("参数不能为空");
+            throw new BaiduParamsException(String.format("参数不能为空accessToken、refreshToken===》%s,%s",accessToken,refreshToken));
         }
         String response = HttpUtil.sendGet(BaiduUrlConstants.GET_MINI_TOKEN_URL, new RefreshMiniTokenRequest(accessToken,refreshToken));
 
         MiniTokenResponse miniTokenResponse = new Gson().fromJson(response, MiniTokenResponse.class);
 
         if (StringUtils.isNotBlank(miniTokenResponse.getError())){
-            throw new BaiduException("刷新小程序token异常===》"+response);
+            throw new BaiduException("刷新小程序token异常===》"+response+"\n异常解析===》"+ BaiduErrorInfoEnums.getMsgByErrorCode(miniTokenResponse.getError()));
         }
 
         localCache.setLocalCache(LocalCacheConstants.GET_THIRD_PART_CHANGE_MINI_TOKEN_KEY,miniTokenResponse);
@@ -146,7 +151,9 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
         }
         Object o = params.get(BaiduParamsConstants.THIRD_PART_TICKET_DECRYPT_KEY);
         if (null == o) {
-            throw new BaiduParamsException(String.format("未从params中找到对应需解密的Ticket数据-----%s未找到",BaiduParamsConstants.THIRD_PART_TICKET_DECRYPT_KEY));
+            throw new BaiduParamsException(String.format("未从params中找到对应需解密的Ticket数据-----%s未找到===》params===》%s",
+                    BaiduParamsConstants.THIRD_PART_TICKET_DECRYPT_KEY,
+                    JSONObject.toJSONString(params)));
         }
 
         String ticket = "";
@@ -158,7 +165,9 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
         }
 
         if (null == ticket) {
-            throw new BaiduParamsException(String.format("未从params中找到对应解密数据中的Ticket数据-----%s未找到",BaiduParamsConstants.THIRD_PART_GET_TICKET_KEY));
+            throw new BaiduParamsException(String.format("未从params中找到对应解密数据中的Ticket数据-----%s未找到===》params===》%s",
+                    BaiduParamsConstants.THIRD_PART_GET_TICKET_KEY,
+                    JSONObject.toJSONString(params)));
         }
 
         return getToken(ticket);
@@ -166,8 +175,7 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
 
     @Override
     public PreAuthCodeResponse getPreAuthCode() {
-        AccessTokenResponse accessTokenResponse = (AccessTokenResponse)localCache.getCache(LocalCacheConstants.GET_THIRD_PART_ACCESS_TOKEN);
-        return getPreAuthCode(accessTokenResponse.getData().getAccess_token());
+        return getPreAuthCode(baiduApplicationContext.getAccessToken());
     }
 
     @Override
@@ -199,7 +207,7 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public String getAuthorizationUrl(String redirectUri) {
         return getAuthorizationUrl(
-                ((PreAuthCodeResponse)localCache.getCache(LocalCacheConstants.GET_THIRD_PART_PRE_AUTH_CODE)).getData().getPre_auth_code(),
+                baiduApplicationContext.getPreAuthCode(),
                 redirectUri
         );
     }
@@ -221,7 +229,7 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public MiniTokenResponse codeChangeMiniToken(String code) {
         return codeChangeMiniToken(
-                ((AccessTokenResponse)localCache.getCache(LocalCacheConstants.GET_THIRD_PART_ACCESS_TOKEN)).getData().getAccess_token(),
+                baiduApplicationContext.getAccessToken(),
                 code
         );
     }
@@ -245,7 +253,7 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public MiniTokenResponse refreshMiniToken(String refreshToken) {
         return refreshMiniToken(
-                ((AccessTokenResponse)localCache.getCache(LocalCacheConstants.GET_THIRD_PART_ACCESS_TOKEN)).getData().getAccess_token(),
+                baiduApplicationContext.getAccessToken(),
                 refreshToken
         );
     }
@@ -253,8 +261,8 @@ public class BaiduThirdPartAuthServiceImpl implements BaiduThirdPartAuthService 
     @Override
     public MiniTokenResponse refreshMiniToken() {
         return refreshMiniToken(
-                ((AccessTokenResponse)localCache.getCache(LocalCacheConstants.GET_THIRD_PART_ACCESS_TOKEN)).getData().getAccess_token(),
-                ((MiniTokenResponse)localCache.getCache(LocalCacheConstants.GET_THIRD_PART_CHANGE_MINI_TOKEN_KEY)).getRefresh_token()
+                baiduApplicationContext.getAccessToken(),
+                baiduApplicationContext.getMiniRefreshToken()
         );
     }
 

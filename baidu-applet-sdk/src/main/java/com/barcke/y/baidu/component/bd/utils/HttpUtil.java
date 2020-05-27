@@ -2,7 +2,8 @@ package com.barcke.y.baidu.component.bd.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
-import com.barcke.y.baidu.annotation.BaiduFieldName;
+import com.barcke.y.baidu.component.annotation.BaiduFieldName;
+import com.google.common.base.Joiner;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
@@ -10,12 +11,15 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.net.URI;
 import java.util.HashMap;
@@ -65,7 +69,7 @@ public class HttpUtil {
      * @param encoding response数据格式 列：UTF-8
      * @return java.lang.String
      */
-    public static String sendPost(String url, Map<String, String> headers, JSONObject data, String encoding) {
+    public static String sendPost(String url, Map<String, String> headers, JSONObject data, String encoding, Map<String, InputStream> files) {
         String resultJson = null;
         CloseableHttpClient client = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost();
@@ -85,8 +89,16 @@ public class HttpUtil {
                 httpPost.setHeaders(allHeader);
             }
 
-            if (null==data) {
+            if (null!=data) {
                 httpPost.setEntity(new StringEntity(JSON.toJSONString(data)));
+            }
+
+            if (null!=files&&!files.isEmpty()){
+                MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+                files.entrySet().stream().forEach(k ->{
+                    builder.addBinaryBody(k.getKey(),k.getValue(), ContentType.MULTIPART_FORM_DATA,k.getKey());
+                });
+                httpPost.setEntity(builder.build());
             }
 
             //构建超时等配置信息
@@ -176,68 +188,18 @@ public class HttpUtil {
         if (o == null) {
             return sendGet(url,null,"UTF-8");
         }
-        StringBuilder sb=new StringBuilder();
-        Field[] declaredFields = o.getClass().getDeclaredFields();
-        for (Field field :
-                declaredFields) {
-            field.setAccessible(true);
 
-            Object value = "";
-            try {
-                value=field.get(o);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            if (value==null){
-                continue;
-            }
-
-            if (StringUtils.isNotBlank(sb)){
-                sb.append("&");
-            }
-
-            if (field.isAnnotationPresent(BaiduFieldName.class)){
-                sb.append(field.getAnnotation(BaiduFieldName.class).value()+ "=" +value);
-                continue;
-            }
-            sb.append(field.getName() + "=" +value);
-        }
-
-        return sendGet(url + "?" + sb.toString(),null,"UTF-8");
+        return sendGet(url,o,null);
     }
 
     public static String sendGet(String url,Object o,Map<String, String> headers){
         if (o == null) {
             return sendGet(url,null,"UTF-8");
         }
-        StringBuilder sb=new StringBuilder();
-        Field[] declaredFields = o.getClass().getDeclaredFields();
-        for (Field field :
-                declaredFields) {
-            field.setAccessible(true);
 
-            Object value = "";
-            try {
-                value=field.get(o);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-            if (value==null){
-                continue;
-            }
+        String join = Joiner.on("&").useForNull("").withKeyValueSeparator("=").join(parsingBaiduFieldNameValue(o));
 
-            if (StringUtils.isNotBlank(sb)){
-                sb.append("&");
-            }
-
-            if (field.isAnnotationPresent(BaiduFieldName.class)){
-                sb.append(field.getAnnotation(BaiduFieldName.class).value()+ "=" +value);
-                continue;
-            }
-            sb.append(field.getName() + "=" +value);
-        }
-
-        return sendGet(url + "?" + sb.toString(),headers,"UTF-8");
+        return sendGet(url + "?" + join,headers,"UTF-8");
     }
 
     public static String sendGet(String url,Map<String,Object> params) {
@@ -255,7 +217,7 @@ public class HttpUtil {
 
             sb.append(key+"="+params.get(key));
         }
-        return sendGet(url + "?" +sb.toString(),null,"UTF-8");
+        return sendGet(url + "?" +sb.toString());
     }
 
     public static String sendGet(String url,JSONObject params) {
@@ -275,23 +237,32 @@ public class HttpUtil {
             sb.append(key+"="+params.get(key));
         }
 
-        return sendGet(url + "?" +sb.toString(),null,"UTF-8");
+        return sendGet(url + "?" +sb.toString());
     }
 
     public static String sendPost(String url,Map<String,Object> params){
         String jsonString = JSON.toJSONString(params);
-        return sendPost(url,null,JSON.parseObject(jsonString),"UTF-8");
+        return sendPost(url,null,JSON.parseObject(jsonString),"UTF-8",null);
     }
 
     public static String sendPost(String url, JSONObject jsonObject){
-        return sendPost(url,null,jsonObject,"UTF-8");
+        return sendPost(url,null,jsonObject,"UTF-8",null);
     }
 
     public static String sendPost(String url, Object o){
+        return sendPost(url,o,parsingBaiduFieldNameFile(o));
+    }
+
+    public static String sendPost(String url, Object o,Map<String,InputStream> files){
         if (null==o){
-            return sendPost(url,null,null,"UTF-8");
+            return sendPost(url,null,null,"UTF-8",null);
         }
 
+        String jsonString = JSON.toJSONString(parsingBaiduFieldNameValue(o));
+        return sendPost(parsingBaiduFieldNameJoinerUrl(url,o),null,JSON.parseObject(jsonString),"UTF-8",files);
+    }
+
+    private static Map<String,Object> parsingBaiduFieldNameValue(Object o){
         Map<String,Object> map = new HashMap<String, Object>();
         Field[] declaredFields = o.getClass().getDeclaredFields();
         for (Field field :
@@ -309,13 +280,75 @@ public class HttpUtil {
             }
 
             if (field.isAnnotationPresent(BaiduFieldName.class)){
-                map.put(field.getAnnotation(BaiduFieldName.class).value(),value);
-                continue;
+                BaiduFieldName baiduFieldName = field.getAnnotation(BaiduFieldName.class);
+                if (!baiduFieldName.joinerUrl()) {
+                    map.put(field.getAnnotation(BaiduFieldName.class).value(), value);
+                    continue;
+                }
             }
             map.put(field.getName(),value);
         }
+        return map;
+    }
 
-        return sendPost(url,map);
+    private static Map<String, InputStream> parsingBaiduFieldNameFile(Object o){
+        Map<String,InputStream> map = new HashMap<String, InputStream>();
+        Field[] declaredFields = o.getClass().getDeclaredFields();
+        for (Field field :
+                declaredFields) {
+            field.setAccessible(true);
+
+            Object value = "";
+            try {
+                value=field.get(o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (value==null){
+                continue;
+            }
+
+            if (!field.isAnnotationPresent(BaiduFieldName.class)){
+               continue;
+            }
+            BaiduFieldName baiduFieldName = field.getAnnotation(BaiduFieldName.class);
+            if (baiduFieldName.file()) {
+                map.put(field.getAnnotation(BaiduFieldName.class).value(), (InputStream) value);
+            }
+        }
+        return map;
+    }
+
+    private static String parsingBaiduFieldNameJoinerUrl(String url,Object o){
+        if (null==o){
+            return url;
+        }
+        Map<String,Object> map = new HashMap<String, Object>();
+        Field[] declaredFields = o.getClass().getDeclaredFields();
+        for (Field field :
+                declaredFields) {
+            field.setAccessible(true);
+
+            Object value = "";
+            try {
+                value=field.get(o);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+            if (value==null){
+                continue;
+            }
+
+            if (field.isAnnotationPresent(BaiduFieldName.class)){
+                BaiduFieldName baiduFieldName = field.getAnnotation(BaiduFieldName.class);
+                if (baiduFieldName.joinerUrl()) {
+                    map.put(field.getAnnotation(BaiduFieldName.class).value(), value);
+                    continue;
+                }
+            }
+            map.put(field.getName(),value);
+        }
+        return url+"?"+Joiner.on("&").useForNull("").withKeyValueSeparator("=").join(map);
     }
 
 }

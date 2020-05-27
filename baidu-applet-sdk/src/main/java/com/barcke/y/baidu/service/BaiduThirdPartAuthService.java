@@ -1,8 +1,8 @@
 package com.barcke.y.baidu.service;
 
-import com.barcke.y.baidu.pojo.auto.response.AccessTokenResponse;
-import com.barcke.y.baidu.pojo.auto.response.MiniTokenResponse;
-import com.barcke.y.baidu.pojo.auto.response.PreAuthCodeResponse;
+import com.barcke.y.baidu.pojo.thirdpart.auto.response.AccessTokenResponse;
+import com.barcke.y.baidu.pojo.thirdpart.auto.response.MiniTokenResponse;
+import com.barcke.y.baidu.pojo.thirdpart.auto.response.PreAuthCodeResponse;
 
 import java.util.Map;
 

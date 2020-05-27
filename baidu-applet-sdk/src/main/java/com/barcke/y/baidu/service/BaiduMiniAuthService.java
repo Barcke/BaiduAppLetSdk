@@ -1,10 +1,9 @@
 package com.barcke.y.baidu.service;
 
 import com.barcke.y.baidu.pojo.mini.auth.request.MobileAuthRequest;
-import com.barcke.y.baidu.pojo.mini.auth.response.GetUnionIdResponse;
-import com.barcke.y.baidu.pojo.mini.auth.response.MiniLoginResponse;
-import com.barcke.y.baidu.pojo.mini.auth.response.MobileAuthResponse;
-import com.barcke.y.baidu.pojo.mini.auth.response.MobileAuthStatusResponse;
+import com.barcke.y.baidu.pojo.mini.auth.response.*;
+
+import java.io.File;
 
 /**
   *                  ,;,,;
@@ -83,6 +82,27 @@ public interface BaiduMiniAuthService {
     MobileAuthStatusResponse mobileAuthStatus(String miniToken);
 
     /**
+     * 法人人脸识别认证
+     * @author barcke
+     * @date 2020/5/27
+     * @param miniToken 小程序token
+     * @return MobileAuthResponse
+     */
+    FaceAuthenResponse faceAuthen(String miniToken);
+
+    /**
+     * 重载方法 直接获取二维码文件
+     * 法人人脸识别认证
+     * @author barcke
+     * @date 2020/5/27
+     * @param miniToken 小程序token
+     * @param width 生成长宽一致的二维码
+     * @param imgPath 图片存储地址
+     * @return MobileAuthResponse
+     */
+    File faceAuthenGetFile(String miniToken,int width, String imgPath);
+
+    /**
      * 重载方法 从localCache中获取miniToken
      * 授权小程序登录
      * 第三方平台代替小程序实现登录功能请参考 小程序登录 。除了下述部分以外，其他接口的功能与小程序实现方式一致。
@@ -126,4 +146,21 @@ public interface BaiduMiniAuthService {
      * @return MobileAuthResponse
      */
     MobileAuthStatusResponse mobileAuthStatus();
+
+    /**
+     * 法人人脸识别认证
+     * @author barcke
+     * @date 2020/5/27
+     * @return MobileAuthResponse
+     */
+    FaceAuthenResponse faceAuthen();
+
+    /**
+     * 重载方法 直接获取二维码文件
+     * 法人人脸识别认证
+     * @author barcke
+     * @date 2020/5/27
+     * @return MobileAuthResponse
+     */
+    File faceAuthenGetFile(int width, String imgPath);
 }

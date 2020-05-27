@@ -100,6 +100,13 @@ public class BaiduUrlConstants {
     public static final String GET_MOBILE_AUTH_STATUS_URL = "https://openapi.baidu.com/rest/2.0/smartapp/app/get/mobileauthstatus";
 
     /**
+     * 法人人脸识别认证
+     * @author barcke
+     * @date 2020/5/27
+     */
+    public static final String GET_FACE_AUTHEN_URL = "https://openapi.baidu.com/rest/2.0/smartapp/auth/faceauthen";
+
+    /**
      * 获取帐号下已存在的模板列表的URL地址的URL地址
      * @author barcke
      * @date 2020/5/26

@@ -8,15 +8,15 @@ import com.barcke.y.baidu.component.constants.LocalCacheConstants;
 import com.barcke.y.baidu.component.context.BaiduApplicationContext;
 import com.barcke.y.baidu.component.exception.BaiduException;
 import com.barcke.y.baidu.component.exception.BaiduParamsException;
+import com.barcke.y.baidu.component.utils.ZxingUtil;
 import com.barcke.y.baidu.pojo.mini.auth.request.*;
-import com.barcke.y.baidu.pojo.mini.auth.response.GetUnionIdResponse;
-import com.barcke.y.baidu.pojo.mini.auth.response.MiniLoginResponse;
-import com.barcke.y.baidu.pojo.mini.auth.response.MobileAuthResponse;
-import com.barcke.y.baidu.pojo.mini.auth.response.MobileAuthStatusResponse;
+import com.barcke.y.baidu.pojo.mini.auth.response.*;
 import com.barcke.y.baidu.service.BaiduMiniAuthService;
 import com.google.gson.Gson;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+
+import java.io.File;
 
 /**
   *                  ,;,,;
@@ -137,6 +137,34 @@ public class BaiduMiniAuthServiceImpl implements BaiduMiniAuthService {
     }
 
     @Override
+    public FaceAuthenResponse faceAuthen(String miniToken) {
+        if (StringUtils.isBlank(miniToken)){
+            throw new BaiduException("miniToken不能为空");
+        }
+
+        String response = HttpUtil.sendGet(BaiduUrlConstants.GET_FACE_AUTHEN_URL,new MobileAuthStatusRequest(miniToken));
+
+        FaceAuthenResponse faceAuthenResponse=new Gson().fromJson(response,FaceAuthenResponse.class);
+
+        if (!BaiduResponseMsgConstants.SUCCESS_CODE.equals(faceAuthenResponse.getErrno())){
+            throw new BaiduException(String.format("查询手机号权限状态异常===》%s",response));
+        }
+
+        return faceAuthenResponse;
+    }
+
+    @Override
+    public File faceAuthenGetFile(String miniToken, int width, String imgPath) {
+        if (StringUtils.isAnyBlank(miniToken,imgPath)){
+            throw new BaiduException("miniToken、imgPath不能为空");
+        }
+
+        return ZxingUtil.getQRCodeImge(
+                faceAuthen(miniToken).getData().getQrcode(),width,imgPath
+        );
+    }
+
+    @Override
     public MiniLoginResponse miniLogin(String code) {
         return miniLogin(
                 baiduApplicationContext.getMiniToken(),
@@ -163,6 +191,20 @@ public class BaiduMiniAuthServiceImpl implements BaiduMiniAuthService {
     public MobileAuthStatusResponse mobileAuthStatus() {
         return mobileAuthStatus(
                 baiduApplicationContext.getMiniToken()
+        );
+    }
+
+    @Override
+    public FaceAuthenResponse faceAuthen() {
+        return faceAuthen(
+                baiduApplicationContext.getMiniToken()
+        );
+    }
+
+    @Override
+    public File faceAuthenGetFile(int width, String imgPath) {
+        return faceAuthenGetFile(
+                baiduApplicationContext.getMiniToken(),width,imgPath
         );
     }
 

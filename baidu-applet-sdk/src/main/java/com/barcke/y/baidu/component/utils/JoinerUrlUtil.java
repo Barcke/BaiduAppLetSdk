@@ -17,14 +17,8 @@ import java.lang.reflect.Field;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName JoinerUrlUtil
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 8:11 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @UtilityClass
 public class JoinerUrlUtil {

@@ -16,14 +16,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName PreAuthCodeRequest
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 5:35 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor
@@ -32,9 +26,6 @@ public class PreAuthCodeRequest {
 
     /**
      * 第三方平台的接口调用凭据
-     * @author barcke
-     * @date 2020/5/26
-     * @return
      */
     @BaiduFieldName("access_token")
     private String accessToekn;

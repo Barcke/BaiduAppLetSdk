@@ -16,14 +16,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName FaceAuthenRequest
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 7:29 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 法人人脸识别认证请求
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor

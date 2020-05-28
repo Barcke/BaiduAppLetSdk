@@ -18,14 +18,8 @@ import java.util.concurrent.TimeUnit;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName LocalCahe
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 1:53 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 缓存类 用于缓存token等信息
+  * @author Barcke
+  * @version 1.0
   **/
 @Slf4j
 public class LocalCache<T> {

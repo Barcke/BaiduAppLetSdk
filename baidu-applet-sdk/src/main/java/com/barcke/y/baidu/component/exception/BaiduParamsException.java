@@ -11,13 +11,8 @@ package com.barcke.y.baidu.component.exception;
  *     ||        ||  \)
  *     (_\       (_\
  *
- * @ProjectName api
- * @ClassName BaiduException
- * @Description TODO
- * @Author Barcke
- * @Date 2020/4/30 10:49 上午
- * @Version 1.0
- * @description:
+ * @author Barcke
+ * @version 1.0
  **/
 public class BaiduParamsException extends RuntimeException {
 

@@ -26,14 +26,8 @@ import java.util.Map;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName Zxingutil
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 7:43 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 public class ZxingUtil {
 
@@ -61,13 +55,24 @@ public class ZxingUtil {
         }
     }
 
-    /** 将内容contents生成长宽均为width的图片，图片路径由imgPath指定
+    /**
+     * 将内容contents生成长宽均为width的图片，图片路径由imgPath指定
+     * @param width 长宽高
+     * @param imgPath 本地地址
+     * @param contents base64内容
+     * @return File
      */
     public static File getQRCodeImge(String contents, int width, String imgPath) {
         return getQRCodeImge(contents, width, width, imgPath);
     }
 
-    /** 将内容contents生成长为width，宽为width的图片，图片路径由imgPath指定
+    /**
+     * 将内容contents生成长为width，宽为width的图片，图片路径由imgPath指定
+     * @param contents base64内容
+     * @param imgPath 本地存放地址
+     * @param width 宽
+     * @param height 高
+     * @return File
      */
     public static File getQRCodeImge(String contents, int width, int height, String imgPath) {
         try {

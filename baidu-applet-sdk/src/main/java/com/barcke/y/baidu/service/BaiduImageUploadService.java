@@ -19,14 +19,8 @@ import java.util.Map;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduImageUploadService
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 11:26 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 图片上传服务类
+  * @author Barcke
+  * @version 1.0
   **/
 public interface BaiduImageUploadService {
 
@@ -34,7 +28,6 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
      * @param accessToken 	第三方平台的接口调用凭据
      * @param multipartFile 	文件
      * @param type 	图片用途
@@ -52,7 +45,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param accessToken 第三方平台的接口调用凭据
      * @param multipartFile 	文件
      * @param type 	图片用途
      * type 说明：
@@ -61,6 +54,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse upload(String accessToken, File multipartFile, String type) throws FileNotFoundException;
 
@@ -69,7 +63,6 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
      * @param multipartFile 	文件
      * @param type 	图片用途
      * type 说明：
@@ -78,6 +71,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse upload(File multipartFile, String type) throws FileNotFoundException;
 
@@ -85,7 +79,6 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
      * @param accessToken 	第三方平台的接口调用凭据
      * @param path 	本地文件地址
      * @param type 	图片用途
@@ -95,6 +88,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse upload(String accessToken, String path, String type) throws FileNotFoundException;
 
@@ -103,7 +97,6 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
      * @param path 	本地文件地址
      * @param type 	图片用途
      * type 说明：
@@ -112,6 +105,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse upload(String path, String type) throws FileNotFoundException;
 
@@ -120,7 +114,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param ticket 每十分钟百度投递过来的ticket 注意是解密后的ticket
      * @param multipartFile 	文件
      * @param type 	图片用途
      * type 说明：
@@ -129,6 +123,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse uploadByTicket(String ticket,File multipartFile, String type) throws FileNotFoundException;
 
@@ -137,7 +132,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param params 每十分钟百度投递过来的ticket 注意是解密前的ticket即可
      * @param multipartFile 	文件
      * @param type 	图片用途
      * type 说明：
@@ -146,6 +141,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse uploadByTicket(Map<String,Object> params, File multipartFile, String type) throws FileNotFoundException;
 
@@ -154,7 +150,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param ticket 每十分钟百度投递过来的ticket 注意是解密后的ticket
      * @param multipartFile 	文件
      * @param type 	图片用途
      * type 说明：
@@ -163,6 +159,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse uploadByTicket(String ticket,InputStream multipartFile, String type) throws FileNotFoundException;
 
@@ -171,7 +168,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param params 每十分钟百度投递过来的ticket 注意是解密前的ticket即可
      * @param multipartFile 	文件
      * @param type 	图片用途
      * type 说明：
@@ -180,6 +177,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse uploadByTicket(Map<String,Object> params, InputStream multipartFile, String type) throws FileNotFoundException;
 
@@ -188,7 +186,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param ticket 每十分钟百度投递过来的ticket 注意是解密后的ticket
      * @param path 	本机文件路径
      * @param type 	图片用途
      * type 说明：
@@ -197,6 +195,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse uploadByTicket(String ticket,String path, String type) throws FileNotFoundException;
 
@@ -205,7 +204,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param params 每十分钟百度投递过来的ticket 注意是解密前的ticket即可
      * @param path 	本机文件路径
      * @param type 	图片用途
      * type 说明：
@@ -214,6 +213,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws FileNotFoundException 未找到文件异常
      */
     UploadResponse uploadByTicket(Map<String,Object> params, String path, String type) throws FileNotFoundException;
 
@@ -223,7 +223,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param accessToken 第三方平台的调用凭证
      * @param url 	http地址
      * @param type 	图片用途
      * type 说明：
@@ -232,6 +232,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws IOException 没有读到信息流
      */
     UploadResponse uploadHttpUrl(String accessToken,String url, String type) throws IOException;
 
@@ -240,7 +241,6 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
      * @param url 	http地址
      * @param type 	图片用途
      * type 说明：
@@ -249,6 +249,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws IOException 没有读到信息流
      */
     UploadResponse uploadHttpUrl(String url, String type) throws IOException;
 
@@ -257,7 +258,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param ticket  每十分钟百度投递过来的ticket 注意是解密后的ticket
      * @param url 	http地址
      * @param type 	图片用途
      * type 说明：
@@ -266,6 +267,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws IOException 没有读到信息流
      */
     UploadResponse uploadHttpUrlByTicket(String ticket,String url, String type) throws IOException;
 
@@ -275,7 +277,7 @@ public interface BaiduImageUploadService {
      * 图片上传
      * 百度第三方服务所有的api中只要涉及图片url的字段，都需要使用这个图片上传接口返回的图片地址，否则会提示图片来源非法，目前只支持bmp、jpeg、jpg、png格式。
      * @author barcke
-     * @date 2020/5/27
+     * @param params 每十分钟百度投递过来的ticket 注意是解密前的ticket即可
      * @param url 	http地址
      * @param type 	图片用途
      * type 说明：
@@ -284,6 +286,7 @@ public interface BaiduImageUploadService {
      * 2	服务类目资质图片	小于等于5M
      * 3	小程序名称审核资料	小于等于5M
      * @return com.barcke.y.baidu.pojo.thirdpart.upload.response.UploadResponse
+     * @throws IOException 没有读到信息流
      */
     UploadResponse uploadHttpUrlByTicket(Map<String,Object> params,String url, String type) throws IOException;
 

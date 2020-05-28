@@ -16,14 +16,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName MobileAuthStatusRequest
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 4:31 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor

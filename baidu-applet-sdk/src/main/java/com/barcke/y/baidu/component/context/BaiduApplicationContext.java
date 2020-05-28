@@ -18,14 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduApplicationContext
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 4:17 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 public class BaiduApplicationContext {
 

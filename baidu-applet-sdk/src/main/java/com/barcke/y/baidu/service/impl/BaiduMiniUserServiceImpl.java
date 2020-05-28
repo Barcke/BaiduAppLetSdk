@@ -18,14 +18,8 @@ import org.apache.commons.lang3.StringUtils;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduMiniUserServiceImpl
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 11:14 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 public class BaiduMiniUserServiceImpl implements BaiduMiniUserService {
 

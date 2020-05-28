@@ -14,28 +14,31 @@ import lombok.NoArgsConstructor;
   *     ) /       ) / )|    农
   *     ||        ||  \)     
   *     (_\       (_\
-  * @ProjectName api
-  * @ClassName BaiduGetUserInfoResponseDTO
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/4/30 11:50 上午
-  * @Version 1.0
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class GetUserInfoResponse {
 
-    //用户昵称，用户未设置用户昵称时，将获取用户名。
+    /**
+     * 用户昵称，用户未设置用户昵称时，将获取用户名。
+     */
     private String nickname;
 
-    //	用户头像
+    /**
+     * 用户头像
+     */
     private String headimgurl;
 
-    //性别:值为0时是未知，为1时是男性，为2时是女性。
+    /**
+     * 性别:值为0时是未知，为1时是男性，为2时是女性。
+     */
     private String sex;
 
-    //	用户openid
+    /**
+     * 用户openid
+     */
     private String openid;
 }

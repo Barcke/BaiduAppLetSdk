@@ -17,14 +17,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName CodeChangeTokenRequest
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 8:31 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor
@@ -34,24 +28,18 @@ public class CodeChangeMiniTokenRequest {
 
     /**
      * 第三方平台的接口调用凭据
-     * @author barcke
-     * @date 2020/5/26
      */
     @BaiduFieldName("access_token")
     private String accessToken;
 
     /**
      * 授权码
-     * @author barcke
-     * @date 2020/5/26
      */
     @BaiduFieldName("code")
     private String code;
 
     /**
      * 固定字符串：app_to_tp_authorization_code
-     * @author barcke
-     * @date 2020/5/26
      */
     @BaiduFieldName("grant_type")
     private String grantType = "app_to_tp_authorization_code";

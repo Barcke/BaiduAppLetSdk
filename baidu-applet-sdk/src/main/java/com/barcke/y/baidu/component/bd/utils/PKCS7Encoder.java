@@ -13,13 +13,8 @@ import java.util.Arrays;
   *     ) /       ) / )|    农
   *     ||        ||  \)     
   *     (_\       (_\
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName PKCS7Encoder
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/4/30 5:43 下午
-  * @Version 1.0
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 public class PKCS7Encoder {
 

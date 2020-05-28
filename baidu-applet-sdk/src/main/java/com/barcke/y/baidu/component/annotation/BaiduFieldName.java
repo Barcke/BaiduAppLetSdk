@@ -13,14 +13,8 @@ import java.lang.annotation.*;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduFieldName
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 11:12 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
@@ -29,22 +23,19 @@ public @interface BaiduFieldName {
 
     /**
      * 百度接口中指定的key名称
-     * @author barcke
-     * @date 2020/5/26
+     * @return String
      */
     String value();
 
     /**
      * 是否在url中拼接
-     * @author barcke
-     * @date 2020/5/27
+     * @return boolean
      */
     boolean joinerUrl() default false;
 
     /**
      * 判断是否为文件
-     * @author barcke
-     * @date 2020/5/27
+     * @return boolean
      */
     boolean file() default false;
 

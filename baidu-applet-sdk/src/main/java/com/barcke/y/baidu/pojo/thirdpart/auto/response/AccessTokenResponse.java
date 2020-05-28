@@ -16,14 +16,9 @@ import lombok.ToString;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName AccessTokenResponse
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 11:10 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 通过ticket获取token返回值信息
+  * @author Barcke
+  * @version 1.0
+  * 通过ticket获取token返回值信息
   * 返回值示例：
   * {
   *     "errno":0,
@@ -43,15 +38,11 @@ public class AccessTokenResponse {
 
     /**
      * 错误情况下: 错误码；关于错误码的详细信息请参考 https://developer.baidu.com/wiki/index.php?title=docs/oauth/error 。
-     * @author barcke
-     * @date 2020/5/26
      */
     private String errno;
 
     /**
      * 错误情况下: 错误描述信息，用来帮助理解和解决发生的错误。
-     * @author barcke
-     * @date 2020/5/26
      */
     private String msg;
 
@@ -62,20 +53,14 @@ public class AccessTokenResponse {
 
         /**
          * 第三方平台的接口调用凭据
-         * @author barcke
-         * @date 2020/5/26
          */
         private String access_token;
         /**
          * 凭证有效时间，单位：秒
-         * @author barcke
-         * @date 2020/5/26
          */
         private String expires_in;
         /**
          * 拥有的权限说明
-         * @author barcke
-         * @date 2020/5/26
          */
         private String scope;
     }

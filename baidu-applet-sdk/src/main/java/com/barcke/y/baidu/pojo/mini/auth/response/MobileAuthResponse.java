@@ -15,14 +15,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName MobileauthResponse
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 3:51 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor
@@ -31,22 +25,16 @@ public class MobileAuthResponse {
 
     /**
      * 状态码
-     * @author barcke
-     * @date 2020/5/27
      */
     private String errno;
 
     /**
      * 	状态描述
-     * @author barcke
-     * @date 2020/5/27
      */
     private String msg;
 
     /**
      * 	响应参数
-     * @author barcke
-     * @date 2020/5/27
      */
     private Data data;
 

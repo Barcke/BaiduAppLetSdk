@@ -29,14 +29,8 @@ import java.io.File;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduMiniAuthServiceImpl
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 9:31 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 public class BaiduMiniAuthServiceImpl implements BaiduMiniAuthService {
 

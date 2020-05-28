@@ -14,12 +14,8 @@ import lombok.NoArgsConstructor;
  *     ) /       ) / )|    农
  *     ||        ||  \)
  *     (_\       (_\
- * @ProjectName api
- * @ClassName BaiduGetSessionKeyResponseDTO
- * @Description TODO
- * @Author Barcke
- * @Date 2020/4/29 8:26 下午
- * @Version 1.0
+ * @author Barcke
+ * @version 1.0
  * 百度获取sessionkey返回数据DTO
  **/
 @Data

@@ -16,14 +16,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName GetUnionIdResponse
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 9:59 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: unionid响应类
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor
@@ -33,15 +27,11 @@ public class GetUnionIdResponse {
 
     /**
      * 状态码
-     * @author barcke
-     * @date 2020/5/27
      */
     private String errno;
 
     /**
      * 状态信息
-     * @author barcke
-     * @date 2020/5/27
      */
     private String msg;
 
@@ -52,8 +42,6 @@ public class GetUnionIdResponse {
 
         /**
          * 对应的 union id
-         * @author barcke
-         * @date 2020/5/27
          */
         private String union_id;
     }

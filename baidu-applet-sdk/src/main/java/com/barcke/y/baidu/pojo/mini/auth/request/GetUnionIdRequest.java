@@ -16,14 +16,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName GetUnionIdRequest
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 9:58 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 获取unionid
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @NoArgsConstructor

@@ -36,12 +36,8 @@ import java.util.Map;
  *     ) /       ) / )|    农
  *     ||        ||  \)
  *     (_\       (_\
- * @ProjectName api
- * @ClassName HttpUtil
- * @Description TODO
- * @Author Barcke
- * @Date 2020/4/29 8:12 下午
- * @Version 1.0
+ * @author Barcke
+ * @version 1.0
  **/
 @Slf4j
 public class HttpUtil {
@@ -62,11 +58,11 @@ public class HttpUtil {
     /**
      * Post请求
      * @author barcke
-     * @date 2020/4/29
      * @param url 请求地址
      * @param headers 请求头
      * @param data 传递的数据信息即请求体
      * @param encoding response数据格式 列：UTF-8
+     * @param files 需要上传的文件 key为文件名称以及key的名称
      * @return java.lang.String
      */
     public static String sendPost(String url, Map<String, String> headers, JSONObject data, String encoding, Map<String, InputStream> files) {
@@ -129,10 +125,9 @@ public class HttpUtil {
     /**
      * get请求
      * @author barcke
-     * @date 2020/4/30
-     * @param url
-     * @param headers
-     * @param encoding
+     * @param url url地址
+     * @param headers 请求头信息
+     * @param encoding 返回后编码格式
      * @return java.lang.String
      */
     public static String sendGet(String url, Map<String, String> headers, String encoding) {

@@ -28,14 +28,8 @@ import java.util.Map;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduImageUploadServiceImpl
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 11:26 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 public class BaiduImageUploadServiceImpl implements BaiduImageUploadService {
 

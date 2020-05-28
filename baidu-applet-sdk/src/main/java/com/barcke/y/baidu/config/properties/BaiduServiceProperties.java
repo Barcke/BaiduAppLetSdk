@@ -15,14 +15,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduServiceProperties
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/26 1:56 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @Data
 @ConfigurationProperties("baidu.applet.info")
@@ -30,36 +24,26 @@ public class BaiduServiceProperties {
 
     /**
      * 小程序的Key
-     * @author barcke
-     * @date 2020/5/26
      */
     private String appKey;
 
     /**
      * 小程序的Secret
-     * @author barcke
-     * @date 2020/5/26
      */
     private String appSecret;
 
     /**
      * 小程序的appId
-     * @author barcke
-     * @date 2020/5/26
      */
     private String appId;
 
     /**
      * 第三方平台的Key
-     * @author barcke
-     * @date 2020/5/26
      */
     private String thirdPartAppKey;
 
     /**
      * 第三方平台的Secret
-     * @author barcke
-     * @date 2020/5/26
      */
     private String thirdPartAppSecret;
 

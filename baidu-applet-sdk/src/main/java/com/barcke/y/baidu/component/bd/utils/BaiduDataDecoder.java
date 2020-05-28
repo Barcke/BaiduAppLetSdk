@@ -22,13 +22,8 @@ import java.util.Arrays;
  *     ) /       ) / )|    农
  *     ||        ||  \)
  *     (_\       (_\
- * @ProjectName api
- * @ClassName DataDecoder
- * @Description TODO
- * @Author Barcke
- * @Date 2020/4/30 10:47 上午
- * @Version 1.0
- * @description:
+ * @author Barcke
+ * @version 1.0
  **/
 @Slf4j
 public class BaiduDataDecoder {
@@ -39,6 +34,7 @@ public class BaiduDataDecoder {
      * 对密文进行解密
      *
      * @param text 需要解密的密文
+     * @param sessionKey 通过code换取的sessionKey
      *
      * @return 解密得到的明文
      *
@@ -91,10 +87,8 @@ public class BaiduDataDecoder {
         }
         return sourceNumber;
     }
-    /**
-     * 加密机密demo
-     * @param args
-     */
+
+
     public static void main(String[] args) {
         String dy = "Tkl2sKXzQbDGejO/DqjfemCkfmSwfhqYOAs32Pi+8by31JM+nVft7gDDutxiXk+AAzB75F2LbzBq8AoeusqTngZl37zqnvGrNvkNr4Zn0WrEv9GhyckcDvH9DbCkH20nHuj1C1h4y//xNJREYdApargMB1joxVSl+9KOEA7Uem5E/PxZxlt/YkPesP9O0aZ/3y/hwjpdK4udvEKYM/obs7L0/7h4s1Ne8fVw7G9d/XDf3WHy/0J67ESccr7eGPORoY95Buyc0wYbJvba2i4MtA==";
 

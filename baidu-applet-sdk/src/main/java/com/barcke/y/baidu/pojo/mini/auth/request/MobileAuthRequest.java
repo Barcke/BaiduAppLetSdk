@@ -16,14 +16,8 @@ import lombok.NoArgsConstructor;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName MobileauthRequest
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 3:51 下午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,8 +26,6 @@ public class MobileAuthRequest {
 
     /**
      * 授权小程序的接口调用凭据
-     * @author barcke
-     * @date 2020/5/27
      */
     @BaiduFieldName(value = "access_token",joinerUrl = true)
     private String miniToken;
@@ -43,8 +35,6 @@ public class MobileAuthRequest {
      * (0:"用于登录"
      * 1:"收货联系方式"
      * 2："其他")
-     * @author barcke
-     * @date 2020/5/27
      */
     @BaiduFieldName("reason")
     private String reason;
@@ -57,24 +47,18 @@ public class MobileAuthRequest {
      * 3:"业务办理"
      * 4:"信息查询（如社保、公积金查询"
      * 5:预约")
-     * @author barcke
-     * @date 2020/5/27
      */
     @BaiduFieldName("used_scene")
     private String usedScene;
 
     /**
      * 使用场景描述  "使用场景描述不得超过500字"
-     * @author barcke
-     * @date 2020/5/27
      */
     @BaiduFieldName("scene_desc")
     private String sceneDesc;
 
     /**
      * 使用场景demo(场景实例图片)  "实例图片路径需先调用上传图片接口"
-     * @author barcke
-     * @date 2020/5/27
      */
     @BaiduFieldName("scene_demo")
     private String sceneDemo;

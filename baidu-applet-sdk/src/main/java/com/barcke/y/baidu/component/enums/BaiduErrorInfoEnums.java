@@ -18,14 +18,8 @@ import java.util.Arrays;
   *     ||        ||  \)     
   *     (_\       (_\
   *
-  * @ProjectName BaiduAppLetSdk
-  * @ClassName BaiduErrorInfoEnums
-  * @Description TODO
-  * @Author Barcke
-  * @Date 2020/5/27 9:46 上午
-  * @Version 1.0
-  * @slogan: 源于生活 高于生活
-  * @description: 
+  * @author Barcke
+  * @version 1.0
   **/
 @NoArgsConstructor
 @AllArgsConstructor
@@ -48,23 +42,17 @@ public enum BaiduErrorInfoEnums {
 
     /**
      * 错误码
-     * @author barcke
-     * @date 2020/5/27
      */
     @Getter
     private String error;
     /**
      * 详细描述
-     * @author barcke
-     * @date 2020/5/27
      */
     @Getter
     private String msg;
 
     /**
      * 通过错误吗获得描述信息
-     * @author barcke
-     * @date 2020/5/27
      * @param error 错误码
      * @return java.lang.String
      */

@@ -8,17 +8,21 @@
     <artifactId>baidu-applet-spring-boot-start</artifactId>
     <version>0.0.1</version>
 
+    <name>baidu-applet-spring-boot-start</name>
+    <url>https://github.com/Barcke/BaiduAppLetSdk</url>
+    <description>Baidu applet Toolkit -- SpringBoot</description>
+
     <licenses>
         <license>
-            <name>Server Side Public License</name>
-            <url>https://www.mongodb.com/licensing/server-side-public-license</url>
-            <distribution>repo</distribution>
-            <comments>A not business-friendly OSS license</comments>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
+
     <scm>
-        <url>https://github.com/Barcke/BaiduAppLetSdk/tree/master/baidu-applet-spring-boot-start</url>
-        <connection>https://github.com/Barcke/BaiduAppLetSdk.git</connection>
+        <url>https://github.com/Barcke/BaiduAppLetSdk</url>
+        <connection>scm:git:git@github.com:Barcke/BaiduAppLetSdk.git</connection>
+        <developerConnection>scm:git:git@github.com:Barcke/BaiduAppLetSdk.git</developerConnection>
     </scm>
 
     <developers>
@@ -35,7 +39,7 @@
 
     <profiles>
         <profile>
-            <id>default</id>
+            <id>release</id>
             <activation>
                 <activeByDefault>true</activeByDefault>
             </activation>
@@ -100,6 +104,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.deploy.skip>true</maven.deploy.skip>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     </properties>
 

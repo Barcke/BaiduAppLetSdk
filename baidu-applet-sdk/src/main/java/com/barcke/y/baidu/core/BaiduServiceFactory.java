@@ -28,7 +28,7 @@ public interface BaiduServiceFactory {
      * 模板消息service
      * @return com.barcke.y.baidu.service.BaiduTemplateService
      */
-    BaiduTemplateService getBaiduTemplateService();
+    BaiduThirdPartTemplateService getBaiduTemplateService();
 
     /**
      * 小程序授权service

@@ -79,6 +79,31 @@ public class BaiduUrlConstants {
     public static final String GET_FACE_AUTHEN_URL = "https://openapi.baidu.com/rest/2.0/smartapp/auth/faceauthen";
 
     /**
+     * 对公打款认证
+     */
+    public static final String GET_PAYMENT_CERTIFICATION_URL = "https://openapi.baidu.com/rest/2.0/smartapp/auth/paymentCertification";
+
+    /**
+     * 获取模板草稿列表
+     */
+    public static final String GET_TEMPLATE_DRAFT_LIST_URL = "https://openapi.baidu.com/rest/2.0/smartapp/template/gettemplatedraftlist";
+
+    /**
+     * 获取模板列表
+     */
+    public static final String GET_TEMPLATE_LIST_URL = "https://openapi.baidu.com/rest/2.0/smartapp/template/gettemplatelist";
+
+    /**
+     * 添加草稿至模板
+     */
+    public static final String POST_ADD_TO_TEMPLATE_URL = "https://openapi.baidu.com/rest/2.0/smartapp/template/addtotemplate";
+
+    /**
+     * 删除模板
+     */
+    public static final String POST_DEL_TEMPLATE_URL = "https://openapi.baidu.com/rest/2.0/smartapp/template/deltemplate";
+
+    /**
      * 获取帐号下已存在的模板列表的URL地址的URL地址
      */
     public static final String GET_TEMPLATE_LIBRARY_LIST_URL = PATH + "template/librarylist";
@@ -96,7 +121,7 @@ public class BaiduUrlConstants {
     /**
      * 获取帐号下已存在的模板列表的URL地址
      */
-    public static final String GET_TEMPLATE_LIST_URL = PATH + "template/templatelist";
+//    public static final String GET_TEMPLATE_LIST_URL = PATH + "template/templatelist";
 
     /**
      * 删除帐号下的某个模板的URL地址

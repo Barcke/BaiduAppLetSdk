@@ -62,11 +62,19 @@ public class BaiduAutoConfigure {
     }
 
     @Bean
+    @ConditionalOnMissingBean(BaiduThirdPartTemplateServiceImpl.class)
+    @Primary
+    public BaiduThirdPartTemplateServiceImpl baiduThirdPartTemplateService(){
+        return new BaiduThirdPartTemplateServiceImpl();
+    }
+
+    @Bean
     @ConditionalOnMissingBean(BaiduServiceFactory.class)
 //    @ConditionalOnProperty(prefix = "baidu.applet.info",value = "enabled", havingValue = "true")
     public BaiduServiceFactory baiduServiceFactory(BaiduThirdPartAuthService baiduThirdPartAuthService,
                                                    BaiduMiniAuthService baiduMiniAuthService,
-                                                   BaiduImageUploadService baiduImageUploadService
+                                                   BaiduImageUploadService baiduImageUploadService,
+                                                   BaiduThirdPartTemplateServiceImpl baiduThirdPartTemplateService
     ){
         return new BaiduServiceFactory() {
 
@@ -76,8 +84,8 @@ public class BaiduAutoConfigure {
             }
 
             @Override
-            public BaiduTemplateService getBaiduTemplateService() {
-                return new BaiduTemplateServiceImpl();
+            public BaiduThirdPartTemplateService getBaiduTemplateService() {
+                return baiduThirdPartTemplateService;
             }
 
             @Override

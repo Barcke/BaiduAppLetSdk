@@ -79,6 +79,14 @@ public interface BaiduMiniAuthService {
     FaceAuthenResponse faceAuthen(String miniToken);
 
     /**
+     * 对公打款认证
+     * @author barcke
+     * @param miniToken 小程序token
+     * @return PaymentCertificationResponse
+     */
+    PaymentCertificationResponse paymentCertification(String miniToken);
+
+    /**
      * 重载方法 直接获取二维码文件
      * 法人人脸识别认证
      * @author barcke
@@ -138,7 +146,7 @@ public interface BaiduMiniAuthService {
     FaceAuthenResponse faceAuthen();
 
     /**
-     * 重载方法 直接获取二维码文件
+     * 重载方法 直接获取二维码文件 其他信息从localCache中获取
      * 法人人脸识别认证
      * @author barcke
      * @param imgPath 文件存放在本地的地址
@@ -146,4 +154,12 @@ public interface BaiduMiniAuthService {
      * @return MobileAuthResponse
      */
     File faceAuthenGetFile(int width, String imgPath);
+
+    /**
+     * 重载方法从lcoalCache中获取miniToken
+     * 对公打款认证
+     * @author barcke
+     * @return PaymentCertificationResponse
+     */
+    PaymentCertificationResponse paymentCertification();
 }

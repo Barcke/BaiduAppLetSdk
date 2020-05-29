@@ -148,6 +148,23 @@ public class BaiduMiniAuthServiceImpl implements BaiduMiniAuthService {
     }
 
     @Override
+    public PaymentCertificationResponse paymentCertification(String miniToken) {
+        if (StringUtils.isBlank(miniToken)){
+            throw new BaiduException("miniToken不能为空");
+        }
+
+        String response = HttpUtil.sendGet(BaiduUrlConstants.GET_PAYMENT_CERTIFICATION_URL,new PaymentCertificationRequest(miniToken));
+
+        PaymentCertificationResponse paymentCertificationResponse=new Gson().fromJson(response,PaymentCertificationResponse.class);
+
+        if (!BaiduResponseMsgConstants.SUCCESS_CODE.equals(paymentCertificationResponse.getErrno())){
+            throw new BaiduException(String.format("对公打款认证异常===》%s",response));
+        }
+
+        return paymentCertificationResponse;
+    }
+
+    @Override
     public File faceAuthenGetFile(String miniToken, int width, String imgPath) {
         if (StringUtils.isAnyBlank(miniToken,imgPath)){
             throw new BaiduException("miniToken、imgPath不能为空");
@@ -199,6 +216,13 @@ public class BaiduMiniAuthServiceImpl implements BaiduMiniAuthService {
     public File faceAuthenGetFile(int width, String imgPath) {
         return faceAuthenGetFile(
                 baiduApplicationContext.getMiniToken(),width,imgPath
+        );
+    }
+
+    @Override
+    public PaymentCertificationResponse paymentCertification() {
+        return paymentCertification(
+                baiduApplicationContext.getMiniToken()
         );
     }
 
